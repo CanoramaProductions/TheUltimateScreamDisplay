@@ -5,84 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Ultimate Scream Display</title>
     <style>
-        /* General Styling */
         body {
             font-family: Arial, sans-serif;
-            background-color: #121212;
+            background-color: #181818;
             color: #fff;
+            padding: 20px;
             margin: 0;
-            padding: 0;
         }
 
-        header {
+        h1 {
             text-align: center;
-            padding: 20px;
-            background-color: #1f1f1f;
-            border-bottom: 2px solid #333;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-            color: #e50914;
-        }
-
-        section {
-            padding: 20px;
-            border-bottom: 1px solid #333;
-        }
-
-        h2 {
-            color: #e50914;
-            border-bottom: 2px solid #333;
-            padding-bottom: 5px;
+            color: #fff;
         }
 
         form {
             margin-bottom: 20px;
+            text-align: center;
         }
 
-        form input, form select, form button {
-            display: block;
-            margin: 10px 0;
-            padding: 10px;
-            font-size: 1rem;
+        input, select {
+            margin: 10px;
+            padding: 8px;
+            font-size: 14px;
+            border-radius: 5px;
             border: 1px solid #333;
+            background-color: #333;
+            color: #fff;
+        }
+
+        button {
+            background-color: #444;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            color: white;
             border-radius: 5px;
         }
 
-        form input {
-            background-color: #222;
-            color: #fff;
-        }
-
-        form select {
-            background-color: #222;
-            color: #fff;
-        }
-
-        form button {
-            background-color: #e50914;
-            color: #fff;
-            cursor: pointer;
-            border: none;
-            transition: background-color 0.3s ease;
-        }
-
-        form button:hover {
-            background-color: #ff3333;
+        button:hover {
+            background-color: #555;
         }
 
         .item-button {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            background-color: #222;
-            padding: 10px;
             margin: 10px 0;
-            border: 1px solid #333;
+            padding: 10px;
+            border: 1px solid #444;
             border-radius: 5px;
-            transition: transform 0.3s ease, background-color 0.3s ease;
+            background-color: #222;
+            color: white;
+            transition: background-color 0.3s, transform 0.3s;
         }
 
         .item-button:hover {
@@ -90,177 +63,170 @@
             transform: scale(1.02);
         }
 
+        .item-button img {
+            border: 1px solid #555;
+            border-radius: 5px;
+        }
+
         .item-button a {
+            color: white;
             text-decoration: none;
-            color: #fff;
-            flex-grow: 1;
+            font-size: 18px;
+            margin-right: 10px;
         }
 
         .item-button a:hover {
-            color: #ff3333;
+            text-decoration: underline;
         }
 
-        .item-button .remove-btn {
-            color: #e50914;
+        .remove-btn {
+            margin-left: 15px;
+            color: red;
             cursor: pointer;
-            margin-left: 10px;
-            font-weight: bold;
-            transition: color 0.3s ease;
+            transition: color 0.3s;
         }
 
-        .item-button:hover .remove-btn {
-            color: #fff;
+        .remove-btn:hover {
+            color: white;
         }
 
         .fade-out {
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.5s;
+        }
+
+        .item-list {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>The Ultimate Scream Display</h1>
-    </header>
+    <h1>The Ultimate Scream Display</h1>
 
-    <section>
-        <h2>Add Item</h2>
-        <form id="itemForm">
-            <input type="text" id="title" placeholder="Item Title" required><br>
-            <input type="text" id="itemType" placeholder="Item Type"><br>
-            <input type="text" id="seller" placeholder="Seller Name" required><br>
-            <input type="text" id="website" placeholder="Website Name" required><br>
-            <input type="url" id="link" placeholder="Item Link" required><br>
-            <input type="number" id="price" placeholder="Price" step="0.01" min="0"><br>
-            <select id="movieSelect">
-                <option value="scream1996">SCREAM (1996)</option>
-                <option value="scream2">SCREAM 2</option>
-                <option value="scream3">SCREAM 3</option>
-                <option value="scre4m">SCRE4M</option>
-                <option value="scream2022">SCREAM (2022)</option>
-                <option value="screamvi">SCREAM VI</option>
-                <option value="screamSeries">SCREAM (2015-2019)</option>
-                <option value="general">GENERAL</option>
-                <option value="other">OTHER</option>
-                <option value="shops">SHOPS</option>
-            </select><br>
-            <button type="submit">Add Item</button>
-        </form>
-    </section>
+    <form id="itemForm">
+        <input type="text" id="title" placeholder="Item Title" required><br>
+        <input type="text" id="itemType" placeholder="Item Type"><br>
+        <input type="text" id="seller" placeholder="Seller Name" required><br>
+        <input type="text" id="website" placeholder="Website Name" required><br>
+        <input type="url" id="link" placeholder="Item Link"><br>
+        <input type="number" id="price" placeholder="Price" step="0.01" min="0"><br>
+        <label for="imageUpload">Upload Image:</label>
+        <input type="file" id="imageUpload" accept="image/*"><br>
+        <label for="imageUrl">Or Image URL:</label>
+        <input type="url" id="imageUrl" placeholder="Image URL"><br>
+        <select id="movieSelect">
+            <option value="scream1996">SCREAM (1996)</option>
+            <option value="scream2">SCREAM 2</option>
+            <option value="scream3">SCREAM 3</option>
+            <option value="scre4m">SCRE4M</option>
+            <option value="scream2022">SCREAM (2022)</option>
+            <option value="screamvi">SCREAM VI</option>
+            <option value="screamSeries">SCREAM (2015-2019)</option>
+            <option value="general">GENERAL</option>
+            <option value="other">OTHER</option>
+            <option value="shops">SHOPS</option>
+        </select><br>
+        <button type="submit">Add Item</button>
+    </form>
 
-    <!-- Movie Sections -->
-    <section id="scream1996">
-        <h2>SCREAM (1996)</h2>
-        <div id="scream1996Items"></div>
-    </section>
+    <div id="scream1996Items" class="item-list"></div>
+    <div id="scream2Items" class="item-list"></div>
+    <div id="scream3Items" class="item-list"></div>
+    <div id="scre4mItems" class="item-list"></div>
+    <div id="scream2022Items" class="item-list"></div>
+    <div id="screamviItems" class="item-list"></div>
+    <div id="screamSeriesItems" class="item-list"></div>
+    <div id="generalItems" class="item-list"></div>
+    <div id="otherItems" class="item-list"></div>
+    <div id="shopsItems" class="item-list"></div>
 
-    <section id="scream2">
-        <h2>SCREAM 2</h2>
-        <div id="scream2Items"></div>
-    </section>
+    <script>
+        document.getElementById('itemForm').addEventListener('submit', function (e) {
+            e.preventDefault();
 
-    <section id="scream3">
-        <h2>SCREAM 3</h2>
-        <div id="scream3Items"></div>
-    </section>
+            // Get form values
+            const title = document.getElementById('title').value;
+            const itemType = document.getElementById('itemType').value;
+            const seller = document.getElementById('seller').value;
+            const website = document.getElementById('website').value;
+            const link = document.getElementById('link').value;
+            const price = document.getElementById('price').value;
+            const movieSelect = document.getElementById('movieSelect').value;
 
-    <section id="scre4m">
-        <h2>SCRE4M</h2>
-        <div id="scre4mItems"></div>
-    </section>
+            const imageUpload = document.getElementById('imageUpload').files[0];
+            const imageUrl = document.getElementById('imageUrl').value;
 
-    <section id="scream2022">
-        <h2>SCREAM (2022)</h2>
-        <div id="scream2022Items"></div>
-    </section>
+            // Determine the container
+            const container = document.getElementById(`${movieSelect}Items`);
 
-    <section id="screamvi">
-        <h2>SCREAM VI</h2>
-        <div id="screamviItems"></div>
-    </section>
+            // Validate input
+            if (!title || !seller || !website || (movieSelect !== 'shops' && !price)) {
+                alert('Please fill out all required fields.');
+                return;
+            }
 
-    <section id="screamSeries">
-        <h2>SCREAM (2015-2019)</h2>
-        <div id="screamSeriesItems"></div>
-    </section>
+            // Determine image source
+            let imageSrc = '';
+            if (imageUpload) {
+                imageSrc = URL.createObjectURL(imageUpload);
+            } else if (imageUrl) {
+                imageSrc = imageUrl;
+            }
 
-    <section id="general">
-        <h2>GENERAL</h2>
-        <div id="generalItems"></div>
-    </section>
+            // Create item button
+            const itemButton = document.createElement('div');
+            itemButton.className = 'item-button';
 
-    <section id="other">
-        <h2>OTHER</h2>
-        <div id="otherItems"></div>
-    </section>
+            // Add image if available
+            if (imageSrc) {
+                const image = document.createElement('img');
+                image.src = imageSrc;
+                image.alt = title;
+                image.style.width = '100px';
+                image.style.marginRight = '10px';
+                itemButton.appendChild(image);
+            }
 
-    <section id="shops">
-        <h2>SHOPS</h2>
-        <div id="shopsItems"></div>
-    </section>
+            // Add title and link
+            const itemLink = document.createElement('a');
+            itemLink.href = link || '#';
+            itemLink.target = '_blank';
+            itemLink.textContent = title;
 
-<script>
-    // Function to add items dynamically
-    document.getElementById('itemForm').addEventListener('submit', function (e) {
-        e.preventDefault();
+            // Add details
+            const detailsSpan = document.createElement('span');
+            detailsSpan.textContent = movieSelect === 'shops'
+                ? `${seller} on ${website}`
+                : `${itemType} - ${seller} on ${website}`;
 
-        const title = document.getElementById('title').value;
-        const itemType = document.getElementById('itemType').value;
-        const seller = document.getElementById('seller').value;
-        const website = document.getElementById('website').value;
-        const link = document.getElementById('link').value;
-        const price = document.getElementById('price').value;
-        const movieSelect = document.getElementById('movieSelect').value;
+            // Add price (if applicable)
+            const priceSpan = document.createElement('span');
+            priceSpan.textContent = price ? `$${parseFloat(price).toFixed(2)}` : '';
+            priceSpan.style.marginLeft = 'auto';
 
-        const container = document.getElementById(`${movieSelect}Items`);
+            // Remove button
+            const removeButton = document.createElement('span');
+            removeButton.className = 'remove-btn';
+            removeButton.textContent = 'Remove';
+            removeButton.addEventListener('click', function () {
+                itemButton.classList.add('fade-out');
+                setTimeout(() => {
+                    itemButton.remove();
+                }, 500); // Matches fade-out duration in CSS
+            });
 
-        // Validate the input fields
-        if (!title || !seller || !website || (movieSelect !== 'shops' && !price)) {
-            alert('Please fill out all required fields.');
-            return;
-        }
+            // Append elements to item button
+            itemButton.appendChild(itemLink);
+            itemButton.appendChild(detailsSpan);
+            if (price) itemButton.appendChild(priceSpan);
+            itemButton.appendChild(removeButton);
 
-        // Create a new item button
-        const itemButton = document.createElement('div');
-        itemButton.className = 'item-button';
+            // Append to container
+            container.appendChild(itemButton);
 
-        const itemLink = document.createElement('a');
-        itemLink.href = link || '#';
-        itemLink.target = '_blank';
-        itemLink.textContent = title;
-
-        const detailsSpan = document.createElement('span');
-        detailsSpan.textContent = movieSelect === 'shops'
-            ? `${seller} on ${website}`
-            : `${itemType} - ${seller} on ${website}`;
-
-        const priceSpan = document.createElement('span');
-        priceSpan.textContent = price ? `$${parseFloat(price).toFixed(2)}` : '';
-        priceSpan.style.marginLeft = 'auto';
-
-        const removeButton = document.createElement('span');
-        removeButton.className = 'remove-btn';
-        removeButton.textContent = 'Remove';
-        removeButton.addEventListener('click', function () {
-            itemButton.classList.add('fade-out');
-            setTimeout(() => {
-                itemButton.remove();
-            }, 500); // Matches fade-out duration in CSS
+            // Clear form
+            document.getElementById('itemForm').reset();
         });
-
-        // Append all elements to the button
-        itemButton.appendChild(itemLink);
-        itemButton.appendChild(detailsSpan);
-        if (price) itemButton.appendChild(priceSpan);
-        itemButton.appendChild(removeButton);
-
-        // Append item button to the container
-        container.appendChild(itemButton);
-
-        // Clear form fields
-        document.getElementById('itemForm').reset();
-    });
-</script>
-
+    </script>
 </body>
 </html>
