@@ -43,7 +43,22 @@
             text-decoration: none; /* Remove underline from button */
             color: white;
             transition: background-color 0.3s ease, color 0.3s ease;
+            cursor: pointer; /* Show link cursor */
+            opacity: 1;
+            transform: translateX(-100%); /* Slide-in effect starts off-screen */
+            animation: slideIn 0.5s ease-out forwards;
         }
+
+        /* Slide-in effect */
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
         .item-button:hover {
             background-color: red;
             color: white;
@@ -56,6 +71,16 @@
             font-size: 1.2rem;
             font-weight: bold;
             color: white; /* Ensure title is white */
+            flex: 1; /* Take up remaining space */
+        }
+        .item-button .item-type {
+            font-size: 1.2rem;
+            color: #bbb;
+            background-color: #555;
+            padding: 5px;
+            border: none;
+            margin-left: 10px;
+            flex: 0 0 auto; /* Fixed size for item type */
         }
         .item-button .seller {
             font-size: 0.9rem;
@@ -98,6 +123,21 @@
         form button:hover {
             background-color: darkred;
         }
+
+        /* Fade-out effect for item removal */
+        .fade-out {
+            animation: fadeOut 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -109,6 +149,7 @@
         <h2>Add Item</h2>
         <form id="itemForm">
             <input type="text" id="title" placeholder="Item Title" required><br>
+            <input type="text" id="itemType" placeholder="Item Type" required><br>
             <input type="text" id="seller" placeholder="Seller Name" required><br>
             <input type="text" id="website" placeholder="Website Name" required><br>
             <input type="url" id="link" placeholder="Item Link" required><br>
@@ -183,6 +224,7 @@
             itemLink.innerHTML = `
                 <div>
                     <div class="title">${item.title}</div>
+                    <div class="item-type">${item.itemType}</div>
                     <div class="seller">${item.seller} on ${item.website}</div>
                 </div>
                 <div class="price">$${item.price}</div>
@@ -201,14 +243,16 @@
             movieSection.appendChild(itemDiv);
         }
 
-        // Remove item from display and local storage
+        // Remove item with fade effect
         function removeItem(item, itemDiv) {
-            const items = JSON.parse(localStorage.getItem('items')) || [];
-            const updatedItems = items.filter(savedItem => savedItem.link !== item.link);
-            localStorage.setItem('items', JSON.stringify(updatedItems));
+            itemDiv.classList.add('fade-out'); // Add fade-out animation class
 
-            // Remove the item from the display
-            itemDiv.remove();
+            setTimeout(() => {
+                const items = JSON.parse(localStorage.getItem('items')) || [];
+                const updatedItems = items.filter(savedItem => savedItem.link !== item.link);
+                localStorage.setItem('items', JSON.stringify(updatedItems));
+                itemDiv.remove();
+            }, 500); // Wait for the fade-out animation to finish before removing the item
         }
 
         // Handle form submission
@@ -217,6 +261,7 @@
 
             // Get form data
             const title = document.getElementById('title').value;
+            const itemType = document.getElementById('itemType').value;
             const seller = document.getElementById('seller').value;
             const website = document.getElementById('website').value;
             const link = document.getElementById('link').value;
@@ -226,6 +271,7 @@
             // Create item object
             const item = {
                 title: title,
+                itemType: itemType,
                 seller: seller,
                 website: website,
                 link: link,
