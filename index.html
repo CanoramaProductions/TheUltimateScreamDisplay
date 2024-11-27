@@ -45,19 +45,6 @@
             color: white;
             transition: background-color 0.3s ease, color 0.3s ease;
             cursor: pointer; /* Show link cursor */
-            opacity: 1;
-            transform: translateX(-100%); /* Slide-in effect starts off-screen */
-            animation: slideIn 0.5s ease-out forwards;
-        }
-
-        /* Slide-in effect */
-        @keyframes slideIn {
-            from {
-                transform: translateX(-100%);
-            }
-            to {
-                transform: translateX(0);
-            }
         }
 
         .item-button:hover {
@@ -122,21 +109,6 @@
         form button:hover {
             background-color: darkred;
         }
-
-        /* Fade-out effect for item removal */
-        .fade-out {
-            animation: fadeOut 0.5s ease-out forwards;
-        }
-
-        @keyframes fadeOut {
-            from {
-                opacity: 1;
-            }
-            to {
-                opacity: 0;
-            }
-        }
-
     </style>
 </head>
 <body>
