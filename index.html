@@ -199,8 +199,68 @@
         <div id="shopsItems"></div>
     </section>
 
-    <script>
-        // JavaScript remains as provided earlier for functionality
-    </script>
+<script>
+    // Function to add items dynamically
+    document.getElementById('itemForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const title = document.getElementById('title').value;
+        const itemType = document.getElementById('itemType').value;
+        const seller = document.getElementById('seller').value;
+        const website = document.getElementById('website').value;
+        const link = document.getElementById('link').value;
+        const price = document.getElementById('price').value;
+        const movieSelect = document.getElementById('movieSelect').value;
+
+        const container = document.getElementById(`${movieSelect}Items`);
+
+        // Validate the input fields
+        if (!title || !seller || !website || (movieSelect !== 'shops' && !price)) {
+            alert('Please fill out all required fields.');
+            return;
+        }
+
+        // Create a new item button
+        const itemButton = document.createElement('div');
+        itemButton.className = 'item-button';
+
+        const itemLink = document.createElement('a');
+        itemLink.href = link || '#';
+        itemLink.target = '_blank';
+        itemLink.textContent = title;
+
+        const detailsSpan = document.createElement('span');
+        detailsSpan.textContent = movieSelect === 'shops'
+            ? `${seller} on ${website}`
+            : `${itemType} - ${seller} on ${website}`;
+
+        const priceSpan = document.createElement('span');
+        priceSpan.textContent = price ? `$${parseFloat(price).toFixed(2)}` : '';
+        priceSpan.style.marginLeft = 'auto';
+
+        const removeButton = document.createElement('span');
+        removeButton.className = 'remove-btn';
+        removeButton.textContent = 'Remove';
+        removeButton.addEventListener('click', function () {
+            itemButton.classList.add('fade-out');
+            setTimeout(() => {
+                itemButton.remove();
+            }, 500); // Matches fade-out duration in CSS
+        });
+
+        // Append all elements to the button
+        itemButton.appendChild(itemLink);
+        itemButton.appendChild(detailsSpan);
+        if (price) itemButton.appendChild(priceSpan);
+        itemButton.appendChild(removeButton);
+
+        // Append item button to the container
+        container.appendChild(itemButton);
+
+        // Clear form fields
+        document.getElementById('itemForm').reset();
+    });
+</script>
+
 </body>
 </html>
