@@ -40,15 +40,18 @@
             margin: 10px 0;
             background-color: #333;
             border-radius: 5px;
-            text-decoration: none;
+            text-decoration: none; /* Remove underline */
             color: white;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         .item-button:hover {
             background-color: red;
+            color: white;
         }
         .item-button .title {
             font-size: 1.2rem;
             font-weight: bold;
+            color: white; /* Ensure title is white */
         }
         .item-button .seller {
             font-size: 0.9rem;
@@ -64,6 +67,10 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        .remove-btn:hover {
+            color: white; /* Change to white on hover */
         }
         form {
             background-color: #333;
