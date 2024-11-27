@@ -148,11 +148,11 @@
         <h2>Add Item</h2>
         <form id="itemForm">
             <input type="text" id="title" placeholder="Item Title" required><br>
-            <input type="text" id="itemType" placeholder="Item Type" required><br>
+            <input type="text" id="itemType" placeholder="Item Type"><br> <!-- Item Type now optional -->
             <input type="text" id="seller" placeholder="Seller Name" required><br>
             <input type="text" id="website" placeholder="Website Name" required><br>
             <input type="url" id="link" placeholder="Item Link" required><br>
-            <input type="number" id="price" placeholder="Price" step="0.01" min="0" required><br>
+            <input type="number" id="price" placeholder="Price" step="0.01" min="0"><br> <!-- Price now optional -->
             <select id="movieSelect">
                 <option value="scream1">SCREAM 1</option>
                 <option value="scream2">SCREAM 2</option>
@@ -261,7 +261,7 @@
         // Remove item from local storage
         function removeFromLocalStorage(itemToRemove) {
             const items = JSON.parse(localStorage.getItem('items')) || [];
-            const updatedItems = items.filter(item => item.title !== itemToRemove.title); // Match item title
+            const updatedItems = items.filter(item => item.title !== itemToRemove.title);
             localStorage.setItem('items', JSON.stringify(updatedItems));
         }
 
@@ -269,13 +269,13 @@
         document.getElementById('itemForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const title = document.getElementById('title').value;
-            const itemType = document.getElementById('itemType').value;
-            const seller = document.getElementById('seller').value;
-            const website = document.getElementById('website').value;
-            const link = document.getElementById('link').value;
-            const price = document.getElementById('price').value;
-            const movie = document.getElementById('movieSelect').value;
+            let title = document.getElementById('title').value;
+            let itemType = document.getElementById('itemType').value;
+            let seller = document.getElementById('seller').value;
+            let website = document.getElementById('website').value;
+            let link = document.getElementById('link').value;
+            let price = document.getElementById('price').value;
+            let movie = document.getElementById('movieSelect').value;
 
             // Adjust for SHOPS section
             if (movie === 'shops') {
