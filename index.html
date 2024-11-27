@@ -98,6 +98,17 @@
         .item-list {
             margin-top: 20px;
         }
+
+        .item-button {
+            opacity: 0;
+            transform: translateX(-100%);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .item-button.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
     </style>
 </head>
 <body>
@@ -191,12 +202,12 @@
             const itemLink = document.createElement('a');
             itemLink.href = link || '#';
             itemLink.target = '_blank';
-            itemLink.textContent = title;
+            itemLink.textContent = movieSelect === 'shops' ? 'Shop Name' : title;
 
             // Add details
             const detailsSpan = document.createElement('span');
             detailsSpan.textContent = movieSelect === 'shops'
-                ? `${seller} on ${website}`
+                ? `Items Being Sold: ${seller} on ${website}`
                 : `${itemType} - ${seller} on ${website}`;
 
             // Add price (if applicable)
@@ -223,6 +234,11 @@
 
             // Append to container
             container.appendChild(itemButton);
+            
+            // Slide in effect
+            setTimeout(() => {
+                itemButton.classList.add('show');
+            }, 10);
 
             // Clear form
             document.getElementById('itemForm').reset();
