@@ -159,6 +159,7 @@
                 <option value="scream4">SCREAM 4</option>
                 <option value="scream5">SCREAM 5</option>
                 <option value="scream6">SCREAM 6</option>
+                <option value="shops">SHOPS</option> <!-- Added SHOPS option -->
             </select><br>
             <button type="submit">Add Item</button>
         </form>
@@ -192,6 +193,12 @@
     <section id="scream6">
         <h2>SCREAM 6</h2>
         <div id="scream6Items"></div>
+    </section>
+
+    <!-- Added Shops Section -->
+    <section id="shops">
+        <h2>SHOPS</h2>
+        <div id="shopsItems"></div>
     </section>
 
     <script>
@@ -243,21 +250,24 @@
 
         // Remove item with fade effect
         function removeItem(item, itemDiv) {
-            itemDiv.classList.add('fade-out'); // Add fade-out animation class
-
+            itemDiv.classList.add('fade-out'); // Add fade effect
             setTimeout(() => {
-                const items = JSON.parse(localStorage.getItem('items')) || [];
-                const updatedItems = items.filter(savedItem => savedItem.link !== item.link);
-                localStorage.setItem('items', JSON.stringify(updatedItems));
-                itemDiv.remove();
-            }, 500); // Wait for the fade-out animation to finish before removing the item
+                itemDiv.remove(); // Remove item after fade-out
+                removeFromLocalStorage(item);
+            }, 500);
         }
 
-        // Handle form submission
-        document.getElementById('itemForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+        // Remove item from local storage
+        function removeFromLocalStorage(itemToRemove) {
+            const items = JSON.parse(localStorage.getItem('items')) || [];
+            const updatedItems = items.filter(item => item.title !== itemToRemove.title); // Match item title
+            localStorage.setItem('items', JSON.stringify(updatedItems));
+        }
 
-            // Get form data
+        // Form submit event to add item
+        document.getElementById('itemForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
             const title = document.getElementById('title').value;
             const itemType = document.getElementById('itemType').value;
             const seller = document.getElementById('seller').value;
