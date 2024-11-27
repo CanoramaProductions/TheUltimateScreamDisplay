@@ -59,6 +59,12 @@
             font-weight: bold;
             color: #0f0;
         }
+        .remove-btn {
+            color: red;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
         form {
             background-color: #333;
             padding: 20px;
@@ -157,14 +163,41 @@
             const movieSection = document.getElementById(item.movie);
             const itemDiv = document.createElement('div');
             itemDiv.classList.add('item-button');
-            itemDiv.innerHTML = `
+            
+            // Create clickable link with href to the item
+            const itemLink = document.createElement('a');
+            itemLink.href = item.link; // Set the URL to the item link
+            itemLink.target = "_blank"; // Open in new tab
+            
+            itemLink.innerHTML = `
                 <div>
                     <div class="title">${item.title}</div>
                     <div class="seller">${item.seller} on ${item.website}</div>
                 </div>
                 <div class="price">$${item.price}</div>
             `;
+            itemDiv.appendChild(itemLink);
+
+            // Create the remove button
+            const removeButton = document.createElement('span');
+            removeButton.classList.add('remove-btn');
+            removeButton.textContent = 'Remove';
+            removeButton.onclick = function() {
+                removeItem(item, itemDiv);
+            };
+            itemDiv.appendChild(removeButton);
+
             movieSection.appendChild(itemDiv);
+        }
+
+        // Remove item from display and local storage
+        function removeItem(item, itemDiv) {
+            const items = JSON.parse(localStorage.getItem('items')) || [];
+            const updatedItems = items.filter(savedItem => savedItem.link !== item.link);
+            localStorage.setItem('items', JSON.stringify(updatedItems));
+
+            // Remove the item from the display
+            itemDiv.remove();
         }
 
         // Handle form submission
