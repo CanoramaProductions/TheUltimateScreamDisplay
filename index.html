@@ -18,12 +18,38 @@
             color: #fff;
         }
 
-        form {
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            margin: 0 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            border: 1px solid #444;
+            background-color: #333;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .tab:hover {
+            background-color: #444;
+        }
+
+        .active {
+            background-color: #555;
+        }
+
+        .item-form {
             margin-bottom: 20px;
             text-align: center;
         }
 
-        input, select {
+        .item-form input,
+        .item-form select,
+        .item-form button {
             margin: 10px;
             padding: 8px;
             font-size: 14px;
@@ -31,19 +57,6 @@
             border: 1px solid #333;
             background-color: #333;
             color: #fff;
-        }
-
-        button {
-            background-color: #444;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            color: white;
-            border-radius: 5px;
-        }
-
-        button:hover {
-            background-color: #555;
         }
 
         .item-button {
@@ -56,6 +69,9 @@
             background-color: #222;
             color: white;
             transition: background-color 0.3s, transform 0.3s;
+            opacity: 0;
+            transform: translateX(-100%);
+            transition: opacity 0.5s, transform 0.5s;
         }
 
         .item-button:hover {
@@ -99,12 +115,6 @@
             margin-top: 20px;
         }
 
-        .item-button {
-            opacity: 0;
-            transform: translateX(-100%);
-            transition: opacity 0.5s, transform 0.5s;
-        }
-
         .item-button.show {
             opacity: 1;
             transform: translateX(0);
@@ -114,31 +124,46 @@
 <body>
     <h1>The Ultimate Scream Display</h1>
 
-    <form id="itemForm">
-        <input type="text" id="title" placeholder="Item Title" required><br>
-        <input type="text" id="itemType" placeholder="Item Type"><br>
-        <input type="text" id="seller" placeholder="Seller Name" required><br>
-        <input type="text" id="website" placeholder="Website Name" required><br>
-        <input type="url" id="link" placeholder="Item Link"><br>
-        <input type="number" id="price" placeholder="Price" step="0.01" min="0"><br>
-        <label for="imageUpload">Upload Image:</label>
-        <input type="file" id="imageUpload" accept="image/*"><br>
-        <label for="imageUrl">Or Image URL:</label>
-        <input type="url" id="imageUrl" placeholder="Image URL"><br>
-        <select id="movieSelect">
-            <option value="scream1996">SCREAM (1996)</option>
-            <option value="scream2">SCREAM 2</option>
-            <option value="scream3">SCREAM 3</option>
-            <option value="scre4m">SCRE4M</option>
-            <option value="scream2022">SCREAM (2022)</option>
-            <option value="screamvi">SCREAM VI</option>
-            <option value="screamSeries">SCREAM (2015-2019)</option>
-            <option value="general">GENERAL</option>
-            <option value="other">OTHER</option>
-            <option value="shops">SHOPS</option>
-        </select><br>
-        <button type="submit">Add Item</button>
-    </form>
+    <div class="tabs">
+        <div class="tab active" onclick="showTab('scream1996')">SCREAM (1996)</div>
+        <div class="tab" onclick="showTab('scream2')">SCREAM 2</div>
+        <div class="tab" onclick="showTab('scream3')">SCREAM 3</div>
+        <div class="tab" onclick="showTab('scre4m')">SCRE4M</div>
+        <div class="tab" onclick="showTab('scream2022')">SCREAM (2022)</div>
+        <div class="tab" onclick="showTab('screamvi')">SCREAM VI</div>
+        <div class="tab" onclick="showTab('screamSeries')">SCREAM (2015-2019)</div>
+        <div class="tab" onclick="showTab('general')">GENERAL</div>
+        <div class="tab" onclick="showTab('other')">OTHER</div>
+        <div class="tab" onclick="showTab('shops')">SHOPS</div>
+    </div>
+
+    <div class="item-form">
+        <form id="itemForm">
+            <input type="text" id="title" placeholder="Item Title" required><br>
+            <input type="text" id="itemType" placeholder="Item Type"><br>
+            <input type="text" id="seller" placeholder="Seller Name" required><br>
+            <input type="text" id="website" placeholder="Website Name" required><br>
+            <input type="url" id="link" placeholder="Item Link"><br>
+            <input type="number" id="price" placeholder="Price" step="0.01" min="0"><br>
+            <label for="imageUpload">Upload Image:</label>
+            <input type="file" id="imageUpload" accept="image/*"><br>
+            <label for="imageUrl">Or Image URL:</label>
+            <input type="url" id="imageUrl" placeholder="Image URL"><br>
+            <select id="movieSelect">
+                <option value="scream1996">SCREAM (1996)</option>
+                <option value="scream2">SCREAM 2</option>
+                <option value="scream3">SCREAM 3</option>
+                <option value="scre4m">SCRE4M</option>
+                <option value="scream2022">SCREAM (2022)</option>
+                <option value="screamvi">SCREAM VI</option>
+                <option value="screamSeries">SCREAM (2015-2019)</option>
+                <option value="general">GENERAL</option>
+                <option value="other">OTHER</option>
+                <option value="shops">SHOPS</option>
+            </select><br>
+            <button type="submit">Add Item</button>
+        </form>
+    </div>
 
     <div id="scream1996Items" class="item-list"></div>
     <div id="scream2Items" class="item-list"></div>
@@ -243,6 +268,25 @@
             // Clear form
             document.getElementById('itemForm').reset();
         });
+
+        function showTab(tabName) {
+            const allTabs = document.querySelectorAll('.tab');
+            const allItems = document.querySelectorAll('.item-list');
+
+            allTabs.forEach(tab => tab.classList.remove('active'));
+            allItems.forEach(item => item.style.display = 'none');
+
+            document.querySelectorAll('.tab').forEach(tab => {
+                if (tab.textContent.toLowerCase() === tabName.replace('scream', 'scream ')) {
+                    tab.classList.add('active');
+                }
+            });
+
+            document.getElementById(`${tabName}Items`).style.display = 'block';
+        }
+
+        // Initial setup to show first tab
+        showTab('scream1996');
     </script>
 </body>
 </html>
