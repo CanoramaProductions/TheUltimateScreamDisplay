@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Ultimate Scream Display</title>
     <style>
+        /* General Styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -229,10 +230,10 @@
             itemLink.innerHTML = `
                 <div>
                     <div class="title">${item.title}</div>
-                    <div class="item-type">${item.itemType}</div>
-                    <div class="seller">${item.seller} on ${item.website}</div>
+                    <div class="item-type">${item.itemType || ''}</div>
+                    <div class="seller">${item.seller}</div>
                 </div>
-                <div class="price">$${item.price}</div>
+                <div class="price">${item.price ? '$' + item.price : ''}</div>
             `;
             itemDiv.appendChild(itemLink);
 
@@ -275,6 +276,21 @@
             const link = document.getElementById('link').value;
             const price = document.getElementById('price').value;
             const movie = document.getElementById('movieSelect').value;
+
+            // Adjust for SHOPS section
+            if (movie === 'shops') {
+                itemType = ''; // No item type for shops
+                price = ''; // No price for shops
+                document.getElementById('itemType').disabled = true;
+                document.getElementById('price').disabled = true;
+                document.getElementById('title').placeholder = 'Shop Name';
+                document.getElementById('seller').placeholder = 'Items Being Sold';
+            } else {
+                document.getElementById('itemType').disabled = false;
+                document.getElementById('price').disabled = false;
+                document.getElementById('title').placeholder = 'Item Title';
+                document.getElementById('seller').placeholder = 'Seller Name';
+            }
 
             // Create item object
             const item = {
