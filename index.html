@@ -40,13 +40,17 @@
             margin: 10px 0;
             background-color: #333;
             border-radius: 5px;
-            text-decoration: none; /* Remove underline */
+            text-decoration: none; /* Remove underline from button */
             color: white;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
         .item-button:hover {
             background-color: red;
             color: white;
+        }
+        .item-button a {
+            text-decoration: none; /* Remove underline from the link */
+            color: white; /* Keep title and link text white */
         }
         .item-button .title {
             font-size: 1.2rem;
@@ -69,8 +73,8 @@
             font-size: 1.1rem;
             transition: color 0.3s ease;
         }
-        .remove-btn:hover {
-            color: white; /* Change to white on hover */
+        .item-button:hover .remove-btn {
+            color: white; /* Change remove text color to white when hovering over the item */
         }
         form {
             background-color: #333;
